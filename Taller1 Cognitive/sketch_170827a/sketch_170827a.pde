@@ -86,6 +86,8 @@ void scintillating() {
   }
 }
 
+//All the codes are made from scratch by juclopezso
+
 //Cafe wall illusion
 /* The café wall illusion was first reported 
 by Richard Gregory, a professor of neuropsychology 
