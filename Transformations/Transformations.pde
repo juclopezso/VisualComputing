@@ -1,24 +1,57 @@
 Figure figure;
 char lastKey = ' ';
 
-void setup(){
-  
-  size(600, 500);//, P3D);
-  
-  //balloons = loadShape("balloons-couple.svg"); 
-  //balloons.scale(0.3);  
+float x,y,z;
 
-  figure = new Figure();
-  
+void setup() {
+  size(900,600,P3D);
+  x = width/2;
+  y = height/2;
+  z = 0;
 }
+float rx=0.01;
+float ry=0.02;
 
 void draw() {
-  background(210);
-  //shape(square, 100, 150);
-  //shape(balloons);
-         
-  figure.draw();
+  background(0);
+  lights();
+  
+  pushMatrix();
+  translate(width/2, height/2, 0);
+  //rotateX(frameCount*rx);
+  rotateY(frameCount*rx);
+  fill(250, 200, 100);
+  sphere(80);
+  
+    pushMatrix();
+    translate(200, 0);
+    rotateY(frameCount*ry);
+    fill(150, 200, 100);
+    sphere(35);
+    popMatrix();
+    
+    rotateY(frameCount*ry*2);
+    pushMatrix();
+    translate(260, 0);
+    rotateY(frameCount*ry);
+    fill(250, 200, 10);
+    sphere(25);
+    popMatrix();
+  
+  
+  popMatrix();
+  
+  
 }
+
+/*void setup(){
+  size(600, 500);//, P3D);
+  figure = new Figure();  
+}
+void draw() {
+  background(210);   
+  figure.draw();
+}*/
 
 void keyPressed(){
   if (key == 's')
