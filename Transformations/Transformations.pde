@@ -1,45 +1,165 @@
 Figure figure;
 char lastKey = ' ';
 
-float x,y,z;
+int[] coords = {mouseX, mouseY};
 
 void setup() {
-  size(900,600,P3D);
-  x = width/2;
-  y = height/2;
-  z = 0;
+  size(1200,600,P3D);
 }
-float rx=0.01;
-float ry=0.02;
 
 void draw() {
   background(0);
   lights();
+  mouseCoords();
+  text("MOUSE: " + coords[0] + " " + coords[1], 10, 10);
+  
+  if(lastKey=='m'){
+    float cameraY = height/2.0;
+    float fov = mouseX/float(width) * PI/2;
+    float cameraZ = cameraY / tan(fov / 2.0);
+    float aspect = float(width)/float(height);
+    if (mousePressed) {
+      aspect = aspect * 2.0;
+    }
+    perspective(fov, aspect, cameraZ/10.0, cameraZ*10.0);
+  }
   
   pushMatrix();
-  translate(width/2, height/2, 0);
-  //rotateX(frameCount*rx);
-  rotateY(frameCount*rx);
-  fill(250, 200, 100);
-  sphere(80);
+  fill(251,200,21);
+  if(lastKey=='t'){
+    translate(coords[0], coords[1]);
+  }else{
+    translate(200, height/2, 0);
+  }
   
+  if(lastKey=='r'){
+    rotateY(2);
+  }
+  
+  if(lastKey=='b'){
+    shearX(1);
+  }
+  if(lastKey=='n'){
+    shearY(1);
+  }
+  if(lastKey=='s'){
+    scale(1.5);
+  }
+  
+  text("Sol", -20, -136);
+  
+  rotateY(frameCount*0.01);
+  noStroke();
+  sphere(120);
+  
+    rotateY(frameCount*0.00003);
     pushMatrix();
-    translate(200, 0);
-    rotateY(frameCount*ry);
-    fill(150, 200, 100);
-    sphere(35);
+    fill(230);
+    translate(110+670, 30);
+    text("Pluton", -20, -35);
+    rotateY(frameCount*0.1);
+    sphere(4);
     popMatrix();
+    rotateY(frameCount*0);
     
-    rotateY(frameCount*ry*2);
+    rotateY(frameCount*0.00005);
     pushMatrix();
-    translate(260, 0);
-    rotateY(frameCount*ry);
-    fill(250, 200, 10);
-    sphere(25);
+    fill(20, 141, 174);
+    translate(110+620, 2);
+    text("Neptuno", -20, -35);
+    rotateY(frameCount*0.1);
+    sphere(23);
     popMatrix();
-  
+    rotateY(frameCount*0);
+    
+    rotateY(frameCount*0.00007);
+    pushMatrix();
+    fill(67, 189, 217);
+    translate(110+540, -33);
+    text("Urano", -20, -35);
+    rotateY(frameCount*0.1);
+    sphere(26);
+    popMatrix();
+    rotateY(frameCount*0);
+    
+    rotateY(frameCount*0.00010);
+    pushMatrix();
+    fill(252, 187, 129);
+    translate(110+440, 30);
+    text("Saturno", -20, -63);
+    rotateY(frameCount*0.01);
+    rotateX(frameCount*0.02);
+    sphere(50);
+    //strokeWeight(5);
+    //stroke(255);
+    fill(200);
+    ellipse(0, 0, 145, 145);
+    popMatrix();
+    rotateY(frameCount*0);
+    
+    rotateY(frameCount*0.00015);
+    pushMatrix();
+    fill(206, 98, 42);
+    translate(110+300, -10);
+    text("Jupiter", -20, -73);
+    rotateY(frameCount*0.1);
+    rotateX(frameCount*0.05);
+    sphere(65);
+    popMatrix();
+    rotateY(frameCount*0);
+    
+    rotateY(frameCount*0.0005);
+    pushMatrix();
+    fill(243, 98, 36);
+    translate(110+200, -20);
+    text("Marte", -15, -13);
+    rotateY(frameCount*0.1);
+    rotateX(frameCount*0.05);
+    sphere(12);
+    popMatrix();
+    rotateY(frameCount*0);
+    
+    rotateY(frameCount*0.001);
+    pushMatrix();
+    fill(19, 123, 190);
+    translate(110+140, -20);
+    text("Tierra", -25, -23);
+    rotateY(frameCount*0.1);
+    rotateX(frameCount*0.06);
+    sphere(18);
+    
+      pushMatrix();
+      fill(230);
+      translate(28, 0);
+      text("Luna", -25, -23);
+      sphere(4);
+      popMatrix();
+    
+    popMatrix();
+    rotateY(frameCount*0);
+    
+    rotateY(frameCount*0.0025);
+    pushMatrix();
+    fill(247, 144, 48);
+    translate(110+100, 30);
+    text("Venus", -25, -23);
+    rotateY(frameCount*0.01);
+    sphere(17);
+    popMatrix();
+    rotateY(frameCount*0);   
+    
+    rotateY(frameCount*0.004);
+    pushMatrix();
+    fill(214, 232, 193);
+    translate(110+52, 0);
+    text("Mercurio", -10, -13);
+    rotateY(frameCount*0.02);
+    sphere(6);
+    popMatrix();
+    rotateY(frameCount*0);  
   
   popMatrix();
+  rotateY(frameCount*0);
   
   
 }
@@ -56,69 +176,26 @@ void draw() {
 void keyPressed(){
   if (key == 's')
     lastKey = 's';
-    //figure.mode = 4;
 
   if (key == 't')
     lastKey = 't';
     
   if (key == 'r')
     lastKey = 'r';
-    //figure.mode = 3;
   
-  if (key == 'e')
-    lastKey = 'e';
-    //figure.mode = 1;
+  if (key == 'b')
+    lastKey = 'b';
     
-  if(lastKey == 't'){
-    figure.mode = 2;
-    if (keyCode == UP){
-        figure.dy = figure.dy - 3;
-        figure.tdy = figure.tdy - 3;}
-    if (keyCode == DOWN){
-        figure.dy = figure.dy + 3;
-        figure.tdy = figure.tdy + 3;}
-    if (keyCode == LEFT){
-        figure.dx = figure.dx - 3;
-        figure.tdx = figure.tdx - 3;}
-    if (keyCode == RIGHT){
-        figure.dx = figure.dx + 3;
-        figure.tdx = figure.tdx + 3;}
-  }
-  
-  if(lastKey == 's'){
-    figure.mode = 4;
-    if (keyCode == UP)
-        figure.sy = figure.sy - 0.06;
-    if (keyCode == DOWN)
-        figure.sy = figure.sy + 0.06;
-    if (keyCode == LEFT)
-        figure.sy = figure.sy - 0.06;
-    if (keyCode == RIGHT)
-        figure.sy = figure.sy + 0.06;
-  }
-  
-  if(lastKey == 'e'){
-    figure.mode = 1;
-    if (keyCode == UP)
-        figure.h2 = figure.h2 - 0.01;
-    if (keyCode == DOWN)
-        figure.h2 = figure.h2 + 0.01;
-    if (keyCode == LEFT)
-        figure.h1 = figure.h1 - 0.01;
-    if (keyCode == RIGHT)
-        figure.h1 = figure.h1 + 0.01;
-  }
-  
-  if(lastKey == 'r'){
-    figure.mode = 3;
-    if (keyCode == UP)
-        figure.r2 = figure.r2 - 0.03;
-    if (keyCode == DOWN)
-        figure.r2 = figure.r2 + 0.03;
-    if (keyCode == LEFT)
-        figure.r1 = figure.r1 - 0.03;
-    if (keyCode == RIGHT)
-        figure.r1 = figure.r1  + 0.03;
-  }
-  
+  if (key == 'n')
+    lastKey = 'n';
+
+  if(key == 'm')
+    lastKey = 'm';
 }
+
+void mouseCoords(){
+    if(mousePressed){
+      coords[0] = mouseX;
+      coords[1] = mouseY;
+    }
+  }
